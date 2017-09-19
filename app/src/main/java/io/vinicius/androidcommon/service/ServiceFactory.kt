@@ -17,12 +17,7 @@ class ServiceFactory
     {
         private const val CACHE_SIZE = 10 * 1024 * 1024
 
-        fun <T> create(clazz: Class<T>): T
-        {
-            return ServiceFactory.create(clazz, null, null)
-        }
-
-        fun <T> create(clazz: Class<T>, time: Long?, unit: TimeUnit?): T
+        fun <T> create(clazz: Class<T>, time: Long? = null, unit: TimeUnit? = null): T
         {
             val logging = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { message -> Timber.d(message) })
                     .setLevel(HttpLoggingInterceptor.Level.BODY)

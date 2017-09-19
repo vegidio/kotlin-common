@@ -1,66 +1,68 @@
 package io.vinicius.androidcommon.model
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class Country
 (
     @field:JsonProperty("area")
-	val area: Int? = null,
+    val area: Int? = null,
 
     @field:JsonProperty("nativeName")
-	val nativeName: String? = null,
+    val nativeName: String? = null,
 
     @field:JsonProperty("capital")
-	val capital: String? = null,
+    val capital: String? = null,
 
     @field:JsonProperty("demonym")
-	val demonym: String? = null,
+    val demonym: String? = null,
 
     @field:JsonProperty("flag")
-	val flag: String? = null,
+    val flag: String? = null,
 
     @field:JsonProperty("alpha2Code")
-	val alpha2Code: String? = null,
+    val alpha2Code: String? = null,
 
     @field:JsonProperty("borders")
-	val borders: List<String?>? = null,
+    val borders: List<String?>? = null,
 
     @field:JsonProperty("subregion")
-	val subregion: String? = null,
+    val subregion: String? = null,
 
     @field:JsonProperty("callingCodes")
-	val callingCodes: List<String?>? = null,
+    val callingCodes: List<String?>? = null,
 
     @field:JsonProperty("gini")
-	val gini: Double? = null,
+    val gini: Double? = null,
 
     @field:JsonProperty("population")
-	val population: Int? = null,
+    val population: Int? = null,
 
     @field:JsonProperty("numericCode")
-	val numericCode: String? = null,
+    val numericCode: String? = null,
 
     @field:JsonProperty("alpha3Code")
-	val alpha3Code: String? = null,
+    val alpha3Code: String? = null,
 
     @field:JsonProperty("topLevelDomain")
-	val topLevelDomain: List<String?>? = null,
+    val topLevelDomain: List<String?>? = null,
 
     @field:JsonProperty("timezones")
-	val timezones: List<String?>? = null,
+    val timezones: List<String?>? = null,
 
     @field:JsonProperty("translations")
-	val translations: Translations? = null,
+    val translations: Translations? = null,
 
     @field:JsonProperty("name")
-	val name: String? = null,
+    val name: String? = null,
 
     @field:JsonProperty("altSpellings")
-	val altSpellings: List<String?>? = null,
+    val altSpellings: List<String?>? = null,
 
     @field:JsonProperty("region")
-	val region: String? = null,
+    val region: String? = null,
 
     @field:JsonProperty("latlng")
-	val latlng: List<Double?>? = null
+    val latlng: List<Double?>? = null
 )

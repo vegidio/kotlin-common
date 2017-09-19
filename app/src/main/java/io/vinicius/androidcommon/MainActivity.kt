@@ -1,11 +1,10 @@
 package io.vinicius.androidcommon
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import io.vinicius.androidcommon.util.FragmentUtil
-import io.vinicius.androidcommon.view.CountryFragment
+import io.vinicius.androidcommon.screen.home.HomeFragment
 
-class MainActivity : AppCompatActivity()
+class MainActivity : BaseActivity()
 {
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -15,6 +14,6 @@ class MainActivity : AppCompatActivity()
         // Saving the current activity
         App.activity = this
 
-        FragmentUtil.put(this, CountryFragment())
+        FragmentUtil.put(this, HomeFragment())
     }
 }
