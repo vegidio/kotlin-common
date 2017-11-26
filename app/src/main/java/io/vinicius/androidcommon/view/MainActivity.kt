@@ -1,8 +1,10 @@
-package io.vinicius.androidcommon
+package io.vinicius.androidcommon.view
 
 import android.os.Bundle
+import io.vinicius.androidcommon.App
+import io.vinicius.androidcommon.R
 import io.vinicius.androidcommon.util.FragmentUtil
-import io.vinicius.androidcommon.screen.home.HomeFragment
+import io.vinicius.androidcommon.view.home.HomeFragment
 
 class MainActivity : BaseActivity()
 {

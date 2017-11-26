@@ -64,8 +64,8 @@ class TinyDb(appContext: Context)
 
     private fun setupFolderPath(imageName: String): String
     {
-        val sdcard_path = Environment.getExternalStorageDirectory()
-        val mFolder = File(sdcard_path, DEFAULT_APP_IMAGEDATA_DIRECTORY!!)
+        val sdcardPath = Environment.getExternalStorageDirectory()
+        val mFolder = File(sdcardPath, DEFAULT_APP_IMAGEDATA_DIRECTORY!!)
 
         if (!mFolder.exists())
             if (!mFolder.mkdirs())

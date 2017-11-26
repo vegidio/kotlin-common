@@ -1,9 +1,10 @@
-package io.vinicius.androidcommon.screen.country
+package io.vinicius.androidcommon.viewmodel
 
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
+import io.vinicius.androidcommon.constant.NetworkState
 import io.vinicius.androidcommon.model.Country
 import io.vinicius.androidcommon.service.CountryService
 import io.vinicius.androidcommon.service.ServiceFactory
@@ -14,9 +15,8 @@ class CountryViewModel
     private val service = ServiceFactory.create(CountryService::class.java)
 
     // Subjects
-    val isLoading = BehaviorSubject.create<Boolean>()
-    val name = BehaviorSubject.create<String>()
-    val capital = BehaviorSubject.create<String>()
+    val state = BehaviorSubject.create<NetworkState>()
+    val country = BehaviorSubject.create<Country>()
 
     /*
      * API Calls
@@ -26,13 +26,11 @@ class CountryViewModel
             = service.getByCountryCode(code)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-
-                    .doOnSubscribe { isLoading.onNext(true) }
-
-                    .doOnNext { country ->
-                        name.onNext(country.name!!)
-                        capital.onNext(country.capital!!)
+                    .doOnSubscribe { state.onNext(NetworkState.LOADING) }
+                    .doOnNext { country.onNext(it) }
+                    .doOnError {
+                        Timber.e(it, "Error getting the country by code")
+                        state.onNext(NetworkState.ERROR)
                     }
-
-                    .doOnError { t -> Timber.e(t, "Error getting the country by code") }
+                    .doOnComplete { state.onNext(NetworkState.IDLE) }
 }

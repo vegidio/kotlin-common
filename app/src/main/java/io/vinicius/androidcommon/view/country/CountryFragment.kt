@@ -1,4 +1,4 @@
-package io.vinicius.androidcommon.screen.country
+package io.vinicius.androidcommon.view.country
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.jakewharton.rxbinding2.view.RxView
 import io.vinicius.androidcommon.R
 import io.vinicius.androidcommon.view.BaseFragment
+import io.vinicius.androidcommon.viewmodel.CountryViewModel
 import kotlinx.android.synthetic.main.fragment_country.*
 import java.util.concurrent.TimeUnit
 
@@ -19,15 +20,15 @@ class CountryFragment : BaseFragment()
 
     override fun bindViewModel()
     {
-        disposables.add(
+        disposables.addAll(
                 RxView.clicks(btRun)
                         .throttleFirst(500, TimeUnit.MILLISECONDS)
-                        .subscribe { loadData() }
-        )
+                        .subscribe { loadData() },
 
-        disposables.addAll(
-                viewModel.name.subscribe { value -> tvCountryName.text = value },
-                viewModel.capital.subscribe { value -> tvCountryCapital.text = value }
+                viewModel.country.subscribe {
+                    tvCountryName.text = it.name
+                    tvCountryCapital.text = it.capital
+                }
         )
     }
 

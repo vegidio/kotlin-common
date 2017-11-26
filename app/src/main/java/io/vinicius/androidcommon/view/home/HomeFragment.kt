@@ -1,4 +1,4 @@
-package io.vinicius.androidcommon.screen.home
+package io.vinicius.androidcommon.view.home
 
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration

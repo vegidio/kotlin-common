@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context="io.vinicius.androidcommon.screen.country.CountryFragment">
+    tools:context="io.vinicius.androidcommon.view.country.CountryFragment">
 
     <TextView
         android:id="@+id/textView"

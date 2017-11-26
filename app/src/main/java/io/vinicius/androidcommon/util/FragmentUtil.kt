@@ -19,7 +19,7 @@ class FragmentUtil
         fun getFragments(activity: Activity): Stack<Fragment>
         {
             var fragments = activities.get(activity.hashCode())
-            if(fragments == null) fragments = Stack<Fragment>()
+            if(fragments == null) fragments = Stack()
             return fragments
         }
 

@@ -5,7 +5,7 @@ import com.tbruyelle.rxpermissions2.RxPermissions
 import io.vinicius.androidcommon.App
 import timber.log.Timber
 
-class PermissionUtil()
+class PermissionUtil
 {
     companion object
     {
