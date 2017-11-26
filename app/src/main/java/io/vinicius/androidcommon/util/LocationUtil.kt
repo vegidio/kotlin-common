@@ -6,8 +6,9 @@ import io.nlopez.smartlocation.SmartLocation
 import io.nlopez.smartlocation.rx.ObservableFactory
 import io.reactivex.subjects.BehaviorSubject
 import timber.log.Timber
+import javax.inject.Inject
 
-class LocationUtil(private val context: Context)
+class LocationUtil @Inject constructor(private val context: Context)
 {
     val lastLocation = BehaviorSubject.create<Location>()
 
@@ -17,8 +18,8 @@ class LocationUtil(private val context: Context)
             SmartLocation.with(context).location()
 
         ObservableFactory.from(locationControl).subscribe(
-                { location -> lastLocation.onNext(location) },
-                { error -> Timber.e(error, "Error getting the location") }
+                { lastLocation.onNext(it) },
+                { Timber.e(it, "Error getting the location") }
         )
     }
 

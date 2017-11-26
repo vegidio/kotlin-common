@@ -4,18 +4,12 @@ import android.content.Context
 import android.support.design.widget.Snackbar
 import android.view.View
 import android.widget.Toast
+import javax.inject.Inject
 
-class UiUtil(appContext: Context)
+class UiUtil @Inject constructor(private val context: Context)
 {
-    private val context: Context
-    private val density: Float
+    private val density = context.resources.displayMetrics.density
     private var snackbar: Snackbar? = null
-
-    init
-    {
-        this.context = appContext
-        this.density = context.resources.displayMetrics.density
-    }
 
     /*
      * Calculate pixel vs. screen density
@@ -40,7 +34,7 @@ class UiUtil(appContext: Context)
         hideSnackBar()
 
         snackbar = Snackbar.make(view, message, Snackbar.LENGTH_INDEFINITE)
-        if(callback != null) snackbar?.setAction(label, { v -> callback.response(v) })
+        if(callback != null) snackbar?.setAction(label, { callback.response(it) })
         snackbar?.show()
     }
 

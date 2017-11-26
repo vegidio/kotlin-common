@@ -7,26 +7,19 @@ import android.graphics.BitmapFactory
 import android.os.Environment
 import android.preference.PreferenceManager
 import android.text.TextUtils
-
+import timber.log.Timber
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.OutputStream
-import java.util.ArrayList
-import java.util.Arrays
+import java.util.*
+import javax.inject.Inject
 
-import timber.log.Timber
-
-class TinyDb(appContext: Context)
+class PreferencesUtil @Inject constructor(context: Context)
 {
-    private val preferences: SharedPreferences
-    private var DEFAULT_APP_IMAGEDATA_DIRECTORY: String? = null
+    private val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+    private var defaultAppImageDirectory: String? = null
     private var lastImagePath = ""
-
-    init
-    {
-        preferences = PreferenceManager.getDefaultSharedPreferences(appContext)
-    }
 
     fun getImage(path: String): Bitmap?
     {
@@ -55,7 +48,7 @@ class TinyDb(appContext: Context)
      */
     fun putImagePNG(theFolder: String, theImageName: String, theBitmap: Bitmap): String?
     {
-        this.DEFAULT_APP_IMAGEDATA_DIRECTORY = theFolder
+        this.defaultAppImageDirectory = theFolder
         val mFullPath = setupFolderPath(theImageName)
         saveBitmapPNG(mFullPath, theBitmap)
         lastImagePath = mFullPath
@@ -65,7 +58,7 @@ class TinyDb(appContext: Context)
     private fun setupFolderPath(imageName: String): String
     {
         val sdcardPath = Environment.getExternalStorageDirectory()
-        val mFolder = File(sdcardPath, DEFAULT_APP_IMAGEDATA_DIRECTORY!!)
+        val mFolder = File(sdcardPath, defaultAppImageDirectory!!)
 
         if (!mFolder.exists())
             if (!mFolder.mkdirs())
@@ -106,12 +99,12 @@ class TinyDb(appContext: Context)
         }
 
         try {
-            if (out != null) {
+            bSuccess3 = if (out != null) {
                 out.flush()
                 out.close()
-                bSuccess3 = true
+                true
             } else
-                bSuccess3 = false
+                false
         } catch (e: IOException) {
             e.printStackTrace()
             bSuccess3 = false
@@ -205,10 +198,7 @@ class TinyDb(appContext: Context)
         // seprating the items in the list
         val mylist = TextUtils.split(preferences.getString(key, ""), "‚‗‚")
         val gottenlist = ArrayList(Arrays.asList(*mylist))
-        val gottenlist2 = ArrayList<Int>()
-
-        for (i in gottenlist.indices)
-            gottenlist2.add(Integer.parseInt(gottenlist[i]))
+        val gottenlist2 = gottenlist.indices.mapTo(ArrayList<Int>()) { Integer.parseInt(gottenlist[it]) }
 
         return gottenlist2
     }

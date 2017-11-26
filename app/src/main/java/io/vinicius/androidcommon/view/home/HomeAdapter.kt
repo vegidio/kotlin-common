@@ -15,7 +15,7 @@ class HomeAdapter(private val items: Array<String>) : RecyclerView.Adapter<HomeA
     inner class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         fun bind(item: String) = with(view) {
             view.tvName.text = item
-            view.setOnClickListener { _ -> itemClick.onNext(item) }
+            view.setOnClickListener { itemClick.onNext(item) }
         }
     }
 

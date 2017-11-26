@@ -9,10 +9,12 @@ import io.vinicius.androidcommon.model.Country
 import io.vinicius.androidcommon.service.CountryService
 import io.vinicius.androidcommon.service.ServiceFactory
 import timber.log.Timber
+import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-class CountryViewModel
+class CountryViewModel @Inject constructor(sf: ServiceFactory)
 {
-    private val service = ServiceFactory.create(CountryService::class.java)
+    private val service = sf.create(CountryService::class.java, 5, TimeUnit.MINUTES)
 
     // Subjects
     val state = BehaviorSubject.create<NetworkState>()

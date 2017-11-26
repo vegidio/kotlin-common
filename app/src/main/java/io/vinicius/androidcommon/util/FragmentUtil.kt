@@ -6,8 +6,9 @@ import android.app.Fragment
 import android.util.SparseArray
 import io.vinicius.androidcommon.R
 import java.util.*
+import javax.inject.Inject
 
-class FragmentUtil
+class FragmentUtil @Inject constructor(private val activity: Activity)
 {
     companion object
     {
@@ -65,9 +66,6 @@ class FragmentUtil
         fun push(activity: Activity, fragment: Fragment, anim1: Int? = null, anim2: Int? = null)
         {
             val ft = activity.fragmentManager.beginTransaction()
-
-            // Clear the stack
-            activities.put(activity.hashCode(), Stack())
 
             // Setting the fragment animation
             if(anim1 != null || anim2 != null) ft.setCustomAnimations(anim1!!, anim2!!)
