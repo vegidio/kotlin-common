@@ -21,6 +21,10 @@ I used a set of well-known Android libraries so we don't have to reinvent the wh
 
 * `interface/Callback` - a generic callback interface using class templates.
 
+## Code Style
+
+This project uses [K&R indentation style](https://en.wikipedia.org/wiki/Indentation_style#K.26R). In general terms, each class and function have their opening brace at the next line, while any block inside them have the opening braces at the same line.
+
 ## Build
 
 To build the project you need Kotlin. In the project root folder type:
