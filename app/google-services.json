@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "390820606669",
+    "firebase_url": "https://mobile-common.firebaseio.com",
+    "project_id": "mobile-common",
+    "storage_bucket": "mobile-common.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:390820606669:android:e29f873b11053f8e",
+        "android_client_info": {
+          "package_name": "io.vinicius.androidcommon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "390820606669-1kk284igr65qnbruqbbsenockvf0hbi5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.vinicius.androidcommon",
+            "certificate_hash": "e1ba26de8e60b62b6ef63b299f57b00f112ac136"
+          }
+        },
+        {
+          "client_id": "390820606669-jrmsjcbiri38glubpijd86b8tnaq3k1k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDT9UQnU00QHxSP6wmU3na8hEbEYC4SJzg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "390820606669-l19qh343c9q13g1jgti69jfhbli4ovqu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "io.vinicius.ioscommon"
+              }
+            },
+            {
+              "client_id": "390820606669-jrmsjcbiri38glubpijd86b8tnaq3k1k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -3,8 +3,10 @@ package io.vinicius.androidcommon.util
 import android.app.Activity
 import android.app.DialogFragment
 import android.app.Fragment
+import android.transition.Transition
 import android.util.SparseArray
 import io.vinicius.androidcommon.R
+import io.vinicius.androidcommon.constant.FragmentTransition
 import java.util.*
 import javax.inject.Inject
 
@@ -46,15 +48,15 @@ class FragmentUtil @Inject constructor(private val activity: Activity)
          * @param anim1 the animation for the fragment that will appear.
          * @param anim2 the animation for the fragment that will disappear.
          */
-        fun put(activity: Activity, fragment: Fragment, anim1: Int? = null, anim2: Int? = null)
+        fun put(activity: Activity, fragment: Fragment, trans1: Transition? = null, trans2: Transition? = null)
         {
+            fragment.enterTransition = trans1
+            fragment.exitTransition = trans2
+
             val ft = activity.fragmentManager.beginTransaction()
 
             // Clear the stack
             activities.put(activity.hashCode(), Stack())
-
-            // Setting the fragment animation
-            if(anim1 != null || anim2 != null) ft.setCustomAnimations(anim1!!, anim2!!)
 
             // Check if the activity is not ending
             if(!activity.isFinishing) ft.replace(R.id.frame_layout, fragment)
@@ -63,12 +65,13 @@ class FragmentUtil @Inject constructor(private val activity: Activity)
             addToStack(activity, fragment)
         }
 
-        fun push(activity: Activity, fragment: Fragment, anim1: Int? = null, anim2: Int? = null)
+        fun push(activity: Activity, fragment: Fragment, trans1: Transition? = FragmentTransition.SLIDE_RIGHT,
+                 trans2: Transition? = FragmentTransition.SLIDE_RIGHT)
         {
-            val ft = activity.fragmentManager.beginTransaction()
+            fragment.enterTransition = trans1
+            fragment.exitTransition = trans2
 
-            // Setting the fragment animation
-            if(anim1 != null || anim2 != null) ft.setCustomAnimations(anim1!!, anim2!!)
+            val ft = activity.fragmentManager.beginTransaction()
 
             // Check if the activity is not ending
             if(!activity.isFinishing) ft.add(R.id.frame_layout, fragment)
@@ -77,15 +80,12 @@ class FragmentUtil @Inject constructor(private val activity: Activity)
             addToStack(activity, fragment)
         }
 
-        fun pop(activity: Activity, anim1: Int? = null, anim2: Int? = null)
+        fun pop(activity: Activity)
         {
             val ft = activity.fragmentManager.beginTransaction()
 
             // Get the topmost fragment
             val topFragment = getFragments(activity).peek()
-
-            // Setting the fragment animation
-            if(anim1 != null || anim2 != null) ft.setCustomAnimations(anim1!!, anim2!!)
 
             // Check if the activity is not ending
             if(!activity.isFinishing) ft.remove(topFragment)
@@ -94,15 +94,15 @@ class FragmentUtil @Inject constructor(private val activity: Activity)
             removeFromStack(activity)
         }
 
-        fun replace(activity: Activity, fragment: Fragment, anim1: Int? = null, anim2: Int? = null)
+        fun replace(activity: Activity, fragment: Fragment, trans1: Transition? = null, trans2: Transition? = null)
         {
+            fragment.enterTransition = trans1
+            fragment.exitTransition = trans2
+
             val ft = activity.fragmentManager.beginTransaction()
 
             // Get the topmost fragment
             val topFragment = getFragments(activity).peek()
-
-            // Setting the fragment animation
-            if(anim1 != null || anim2 != null) ft.setCustomAnimations(anim1!!, anim2!!)
 
             if(!activity.isFinishing && topFragment != null) {
                 ft.add(R.id.frame_layout, fragment)

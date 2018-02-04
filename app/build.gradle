@@ -8,15 +8,42 @@ android {
     buildToolsVersion "27.0.2"
     defaultConfig {
         applicationId "io.vinicius.androidcommon"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    // Signing
+    signingConfigs {
+        release {
+            storeFile file("../keystore/android-common.jks")
+            storePassword System.getenv("KEYSTORE_PASSWORD")
+            keyAlias System.getenv("KEY_ALIAS")
+            keyPassword System.getenv("KEY_PASSWORD")
+        }
+    }
+
+    // Flavors
+    flavorDimensions "app"
+    productFlavors {
+        develop {
+            buildConfigField "String", "BASE_URL", "\"https://dev.example.com/\""
+        }
+        staging {
+            buildConfigField "String", "BASE_URL", "\"https://stg.example.com/\""
+        }
+        production {
+            buildConfigField "String", "BASE_URL", "\"https://example.com/\""
+        }
+    }
+
+    // Others
     buildTypes {
         release {
             minifyEnabled false
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
@@ -31,20 +58,19 @@ android {
 
 dependencies {
     api fileTree(include: ["*.jar"], dir: "libs")
-    api "com.android.support:appcompat-v7:$android.buildToolsVersion"
     api "com.android.support:design:$android.buildToolsVersion"
     api "com.android.support.constraint:constraint-layout:1.0.2"
     api "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     api "com.jakewharton.timber:timber:4.5.1"
     api "com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar"
 
-    // Dagger
-    api "com.google.dagger:dagger:2.13"
-    kapt "com.google.dagger:dagger-compiler:2.13"
+    // Firebase
+    api "com.google.firebase:firebase-auth:11.8.0"
 
-    api "com.google.dagger:dagger-android:2.13"
+    // Dagger
     api "com.google.dagger:dagger-android-support:2.13"
     kapt "com.google.dagger:dagger-android-processor:2.13"
+    kapt "com.google.dagger:dagger-compiler:2.13"
 
     // RxKotlin
     api "io.reactivex.rxjava2:rxkotlin:2.1.0"
@@ -52,16 +78,16 @@ dependencies {
     api "com.jakewharton.rxbinding2:rxbinding-kotlin:2.0.0"
 
     // Retrofit & OkHttp
-    api "com.squareup.retrofit2:retrofit:2.3.0"
     api "com.squareup.retrofit2:adapter-rxjava2:2.3.0"
     api "com.squareup.retrofit2:converter-jackson:2.3.0"
-    api "com.squareup.okhttp3:okhttp:3.9.0"
     api "com.squareup.okhttp3:logging-interceptor:3.9.0"
 
-    // Location
-    api "io.nlopez.smartlocation:library:3.3.2"
-    api "io.nlopez.smartlocation:rx:3.3.2"
+    // Location (transitive to remove GMS conflicts)
+    api("io.nlopez.smartlocation:library:3.3.2") { transitive = false }
+    api("io.nlopez.smartlocation:rx:3.3.2") { transitive = false }
 }
 repositories {
     mavenCentral()
 }
+
+apply plugin: "com.google.gms.google-services"

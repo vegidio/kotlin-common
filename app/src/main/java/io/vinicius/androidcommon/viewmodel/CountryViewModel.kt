@@ -17,8 +17,8 @@ class CountryViewModel @Inject constructor(sf: ServiceFactory)
     private val service = sf.create(CountryService::class.java, 5, TimeUnit.MINUTES)
 
     // Subjects
-    val state = BehaviorSubject.create<NetworkState>()
-    val country = BehaviorSubject.create<Country>()
+    val state = BehaviorSubject.create<NetworkState>()!!
+    val country = BehaviorSubject.create<Country>()!!
 
     /*
      * API Calls

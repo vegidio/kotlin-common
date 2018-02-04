@@ -25,6 +25,22 @@ I used a set of well-known Android libraries so we don't have to reinvent the wh
 
 This project uses [K&R indentation style](https://en.wikipedia.org/wiki/Indentation_style#K.26R). In general terms, each class and function have their opening brace at the next line, while any block inside them have the opening braces at the same line.
 
+## Extracting the keystore signature
+
+The keystore signature is often needed to authenticate the app access to services like Google Maps or Firebase:
+
+### Debug
+
+```
+$ keytool -exportcert -list -v -alias androiddebugkey -keystore ~/.android/debug.keystore
+```
+
+### Production
+
+```
+$ keytool -exportcert -list -v -alias <key-name> -keystore <key-file>
+```
+
 ## Build
 
 To build the project you need Kotlin. In the project root folder type:

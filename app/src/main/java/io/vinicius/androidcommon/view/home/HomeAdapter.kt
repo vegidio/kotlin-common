@@ -6,15 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import io.reactivex.subjects.PublishSubject
 import io.vinicius.androidcommon.R
+import io.vinicius.androidcommon.constant.MenuOptions
 import kotlinx.android.synthetic.main.row_home.view.*
 
-class HomeAdapter(private val items: Array<String>) : RecyclerView.Adapter<HomeAdapter.ViewHolder>()
+class HomeAdapter(private val items: Array<MenuOptions>) : RecyclerView.Adapter<HomeAdapter.ViewHolder>()
 {
-    val itemClick = PublishSubject.create<String>()
+    val itemClick = PublishSubject.create<MenuOptions>()!!
 
     inner class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(item: String) = with(view) {
-            view.tvName.text = item
+        fun bind(item: MenuOptions) = with(view) {
+            view.tvName.text = item.menu
             view.setOnClickListener { itemClick.onNext(item) }
         }
     }

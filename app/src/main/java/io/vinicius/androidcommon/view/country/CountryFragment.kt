@@ -33,15 +33,15 @@ class CountryFragment : BaseFragment()
     override fun bindViewModel()
     {
         disposables.addAll(
-                RxView.clicks(btRun)
-                        .throttleFirst(500, TimeUnit.MILLISECONDS)
-                        .subscribe { loadData() },
+            RxView.clicks(btRun)
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe { loadData() },
 
-                viewModel.country.subscribe {
-                    ignoreValue = it.alpha2Code ?: ""
-                    tvCountryName.text = it.name
-                    tvCountryCapital.text = it.capital
-                }
+            viewModel.country.subscribe {
+                ignoreValue = it.alpha2Code ?: ""
+                tvCountryName.text = it.name
+                tvCountryCapital.text = it.capital
+            }
         )
     }
 
@@ -52,9 +52,9 @@ class CountryFragment : BaseFragment()
         val code = filtered.shuffled()[0]
 
         disposables.add(
-                viewModel.getCountryByCode(code).subscribe({}, {
-                    Timber.e(it, "Error getting the country by code")
-                })
+            viewModel.getCountryByCode(code).subscribe({}, {
+                Timber.e(it, "Error getting the country by code")
+            })
         )
     }
 }

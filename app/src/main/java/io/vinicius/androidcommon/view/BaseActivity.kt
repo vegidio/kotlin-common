@@ -12,7 +12,7 @@ open class BaseActivity : AppCompatActivity()
     {
         val alertDialog = AlertDialog.Builder(this)
                 .setTitle("Android Common")
-                .setMessage("Are you sure do you want to quit the app")
+                .setMessage("Are you sure do you want to quit the app?")
                 .setPositiveButton("Yes") { _, _ -> finish() }
                 .setNegativeButton("No") { _, _ -> Timber.i("I changed my mind...") }
                 .setCancelable(false)
@@ -21,6 +21,6 @@ open class BaseActivity : AppCompatActivity()
         if(FragmentUtil.getFragments(this).size == 1)
             alertDialog.show()
         else
-            FragmentUtil.pop(this, R.animator.slide_in_left, R.animator.slide_out_right)
+            FragmentUtil.pop(this)
     }
 }
