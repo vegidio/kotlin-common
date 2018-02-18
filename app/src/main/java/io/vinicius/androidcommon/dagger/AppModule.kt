@@ -2,6 +2,7 @@ package io.vinicius.androidcommon.dagger
 
 import android.app.Application
 import android.content.Context
+import com.facebook.CallbackManager
 import dagger.Module
 import dagger.Provides
 import io.vinicius.androidcommon.service.ServiceFactory
@@ -17,4 +18,8 @@ class AppModule(private val app: Application)
     @Provides
     @Singleton
     fun provideServiceFactory(context: Context): ServiceFactory = ServiceFactory(context)
+
+    @Provides
+    @Singleton
+    fun provideCallbacKManager(): CallbackManager = CallbackManager.Factory.create()
 }

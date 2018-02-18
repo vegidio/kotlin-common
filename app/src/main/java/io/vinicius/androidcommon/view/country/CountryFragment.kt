@@ -45,6 +45,10 @@ class CountryFragment : BaseFragment()
         )
     }
 
+    /*
+     * Private Methods
+     */
+
     private fun loadData()
     {
         val codes = arrayOf("AS", "BY", "BR", "ES", "GR", "HR", "IR", "LT", "MZ", "PS", "RS", "RU", "SE", "UA")

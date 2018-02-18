@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 class LocationUtil @Inject constructor(private val context: Context)
 {
-    val lastLocation = BehaviorSubject.create<Location>()
+    val lastLocation = BehaviorSubject.create<Location>()!!
 
     fun updateLocation(oneFix: Boolean = false)
     {

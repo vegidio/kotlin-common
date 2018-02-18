@@ -11,6 +11,7 @@ import io.vinicius.androidcommon.util.FragmentUtil
 import io.vinicius.androidcommon.view.BaseFragment
 import io.vinicius.androidcommon.viewmodel.AuthenticationViewModel
 import kotlinx.android.synthetic.main.fragment_login.*
+import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -38,15 +39,49 @@ class LoginFragment : BaseFragment()
 
             RxView.clicks(btLogin)
                 .throttleFirst(500, TimeUnit.MILLISECONDS)
-                .flatMap {
+                .subscribe {
                     val email = etEmail.text.toString().trim()
                     val password = etPassword.text.toString().trim()
-                    viewModel.signIn(email, password)
-                }
-                .subscribe {
-                    FragmentUtil.pop(this.activity)
-                }
+                    doLogin(email, password)
+                },
 
+            RxView.clicks(btFacebook)
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe {
+                    doLoginWithFacebook()
+                }
+        )
+    }
+
+    /*
+     * Private Methods
+     */
+
+    private fun doLogin(email: String, password: String)
+    {
+        disposables.add(
+            viewModel.signIn(email, password).subscribe({
+                if (it.isLoggedIn) {
+                    dismissKeyboard()
+                    FragmentUtil.pop(activity)
+                }
+            }, {
+                Timber.e(it, "Error doing e-mail login")
+            })
+        )
+    }
+
+    private fun doLoginWithFacebook()
+    {
+        disposables.add(
+            viewModel.signInWithFacebook(activity).subscribe({
+                if (it.isLoggedIn) {
+                    dismissKeyboard()
+                    FragmentUtil.pop(activity)
+                }
+            }, {
+                Timber.e(it, "Error doing Facebook login")
+            })
         )
     }
 }

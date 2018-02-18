@@ -31,11 +31,6 @@ class AuthenticationFragment : BaseFragment()
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View
         = inflater!!.inflate(R.layout.fragment_authentication, container, false)
 
-    override fun onActivityCreated(savedInstanceState: Bundle?)
-    {
-        super.onActivityCreated(savedInstanceState)
-    }
-
     override fun bindViewModel()
     {
         disposables.addAll(
@@ -43,18 +38,18 @@ class AuthenticationFragment : BaseFragment()
             RxView.clicks(btLoginLogout)
                 .throttleFirst(500, TimeUnit.MILLISECONDS)
                 .subscribe {
-                    if(viewModel.auth.value.currentUser == null) {
+                    if(viewModel.user.value.isLoggedIn) {
+                        viewModel.signOut()
+                    } else {
                         FragmentUtil.push(this.activity, LoginFragment.newInstance(),
                             FragmentTransition.SLIDE_BOTTOM, FragmentTransition.SLIDE_BOTTOM)
-                    } else {
-                        viewModel.signOut()
                     }
                 },
 
-            viewModel.auth.subscribe { auth ->
-                if(auth.currentUser != null) {
+            viewModel.user.subscribe { user ->
+                if(user.isLoggedIn) {
                     txEmail.setTextColor(ContextCompat.getColor(this.activity, R.color.black))
-                    txEmail.text = auth.currentUser?.email ?: auth.currentUser!!.providerData[0].email
+                    txEmail.text = user.email
                     btLoginLogout.text = "Logout"
                 } else {
                     txEmail.setTextColor(ContextCompat.getColor(this.activity, R.color.medium_gray))
@@ -62,7 +57,6 @@ class AuthenticationFragment : BaseFragment()
                     btLoginLogout.text = "Login"
                 }
             }
-
         )
     }
 }

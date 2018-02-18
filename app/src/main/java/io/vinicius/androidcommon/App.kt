@@ -1,6 +1,8 @@
 package io.vinicius.androidcommon
 
 import android.app.Application
+import com.facebook.FacebookSdk
+import com.facebook.LoggingBehavior
 import io.vinicius.androidcommon.dagger.AppComponent
 import io.vinicius.androidcommon.dagger.AppModule
 import io.vinicius.androidcommon.dagger.DaggerAppComponent
@@ -16,15 +18,40 @@ class App : Application()
     {
         super.onCreate()
 
-        // Make sure the log is enabled only in debug mode
-        if (BuildConfig.DEBUG)
-            Timber.plant(Timber.DebugTree())
+        // Timber logging
+        setupTimber()
 
-        // Dagger
+        // Dagger dependency injection
+        setupDagger()
+
+        // Facebook
+        setupFacebook()
+    }
+
+    /*
+     * Private Methods
+     */
+
+    private fun setupTimber()
+    {
+        if(BuildConfig.DEBUG)
+            Timber.plant(Timber.DebugTree())
+    }
+
+    private fun setupDagger()
+    {
         component = DaggerAppComponent.builder()
             .appModule(AppModule(this))
             .build()
 
         component.inject(this)
+    }
+
+    private fun setupFacebook()
+    {
+        if(BuildConfig.DEBUG) {
+            FacebookSdk.setIsDebugEnabled(true)
+            FacebookSdk.addLoggingBehavior(LoggingBehavior.INCLUDE_ACCESS_TOKENS)
+        }
     }
 }

@@ -1,7 +1,9 @@
 package io.vinicius.androidcommon.view
 
 import android.app.Fragment
+import android.content.Context
 import android.os.Bundle
+import android.view.inputmethod.InputMethodManager
 import io.reactivex.disposables.CompositeDisposable
 
 open class BaseFragment : Fragment()
@@ -28,5 +30,19 @@ open class BaseFragment : Fragment()
 
         // Make sure we dispose any pending observable
         disposables.dispose()
+    }
+
+    /*
+     * Methods
+     */
+
+    fun dismissKeyboard()
+    {
+        val view = activity.currentFocus
+
+        if(view != null) {
+            val inputMethod = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethod.hideSoftInputFromWindow(view.windowToken, 0)
+        }
     }
 }
