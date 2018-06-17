@@ -6,24 +6,24 @@ import com.fasterxml.jackson.annotation.JsonProperty
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class Translations
 (
-    @field:JsonProperty("br")
+    @JsonProperty("br")
     val br: String? = null,
 
-    @field:JsonProperty("de")
+    @JsonProperty("de")
     val de: String? = null,
 
-    @field:JsonProperty("pt")
+    @JsonProperty("pt")
     val pt: String? = null,
 
-    @field:JsonProperty("ja")
+    @JsonProperty("ja")
     val ja: String? = null,
 
-    @field:JsonProperty("it")
+    @JsonProperty("it")
     val it: String? = null,
 
-    @field:JsonProperty("fr")
+    @JsonProperty("fr")
     val fr: String? = null,
 
-    @field:JsonProperty("es")
+    @JsonProperty("es")
     val es: String? = null
 )

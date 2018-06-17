@@ -6,11 +6,9 @@ import com.facebook.FacebookCallback
 import com.facebook.FacebookException
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.internal.zzf
 import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
 import io.vinicius.androidcommon.App
@@ -112,9 +110,9 @@ class AuthenticationViewModel
 
     private fun extractUser(user: FirebaseUser?): User
     {
-        if(user == null) return User()
-
         val newUser = User()
+        if(user == null) return newUser
+
         newUser.isLoggedIn = true
         newUser.loginType = if(user.isAnonymous) "anonymous" else "email"
         newUser.email = user.email
@@ -125,8 +123,7 @@ class AuthenticationViewModel
                 when(it.providerId) {
                     "facebook.com" -> {
                         newUser.loginType = "facebook"
-                        val map = ObjectMapper().readValue((it as zzf).rawUserInfo, HashMap::class.java)
-                        newUser.email = map["email"] as String
+                        newUser.email = it.email
                     }
                 }
             }

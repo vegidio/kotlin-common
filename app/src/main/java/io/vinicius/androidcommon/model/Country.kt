@@ -6,63 +6,63 @@ import com.fasterxml.jackson.annotation.JsonProperty
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class Country
 (
-    @field:JsonProperty("area")
+    @JsonProperty("area")
     val area: Int? = null,
 
-    @field:JsonProperty("nativeName")
+    @JsonProperty("nativeName")
     val nativeName: String? = null,
 
-    @field:JsonProperty("capital")
+    @JsonProperty("capital")
     val capital: String? = null,
 
-    @field:JsonProperty("demonym")
+    @JsonProperty("demonym")
     val demonym: String? = null,
 
-    @field:JsonProperty("flag")
+    @JsonProperty("flag")
     val flag: String? = null,
 
-    @field:JsonProperty("alpha2Code")
+    @JsonProperty("alpha2Code")
     val alpha2Code: String? = null,
 
-    @field:JsonProperty("borders")
+    @JsonProperty("borders")
     val borders: List<String?>? = null,
 
-    @field:JsonProperty("subregion")
+    @JsonProperty("subregion")
     val subregion: String? = null,
 
-    @field:JsonProperty("callingCodes")
+    @JsonProperty("callingCodes")
     val callingCodes: List<String?>? = null,
 
-    @field:JsonProperty("gini")
+    @JsonProperty("gini")
     val gini: Double? = null,
 
-    @field:JsonProperty("population")
+    @JsonProperty("population")
     val population: Int? = null,
 
-    @field:JsonProperty("numericCode")
+    @JsonProperty("numericCode")
     val numericCode: String? = null,
 
-    @field:JsonProperty("alpha3Code")
+    @JsonProperty("alpha3Code")
     val alpha3Code: String? = null,
 
-    @field:JsonProperty("topLevelDomain")
+    @JsonProperty("topLevelDomain")
     val topLevelDomain: List<String?>? = null,
 
-    @field:JsonProperty("timezones")
+    @JsonProperty("timezones")
     val timezones: List<String?>? = null,
 
-    @field:JsonProperty("translations")
+    @JsonProperty("translations")
     val translations: Translations? = null,
 
-    @field:JsonProperty("name")
+    @JsonProperty("name")
     val name: String? = null,
 
-    @field:JsonProperty("altSpellings")
+    @JsonProperty("altSpellings")
     val altSpellings: List<String?>? = null,
 
-    @field:JsonProperty("region")
+    @JsonProperty("region")
     val region: String? = null,
 
-    @field:JsonProperty("latlng")
+    @JsonProperty("latlng")
     val latlng: List<Double?>? = null
 )

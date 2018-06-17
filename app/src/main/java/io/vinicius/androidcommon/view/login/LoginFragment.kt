@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.jakewharton.rxbinding2.view.RxView
 import io.vinicius.androidcommon.App
 import io.vinicius.androidcommon.R
+import io.vinicius.androidcommon.model.User
 import io.vinicius.androidcommon.util.FragmentUtil
 import io.vinicius.androidcommon.view.BaseFragment
 import io.vinicius.androidcommon.viewmodel.AuthenticationViewModel
@@ -57,15 +58,17 @@ class LoginFragment : BaseFragment()
      * Private Methods
      */
 
+    private val loginSuccessful = { user: User ->
+        if (user.isLoggedIn) {
+            dismissKeyboard()
+            FragmentUtil.pop(activity)
+        }
+    }
+
     private fun doLogin(email: String, password: String)
     {
         disposables.add(
-            viewModel.signIn(email, password).subscribe({
-                if (it.isLoggedIn) {
-                    dismissKeyboard()
-                    FragmentUtil.pop(activity)
-                }
-            }, {
+            viewModel.signIn(email, password).subscribe(loginSuccessful, {
                 Timber.e(it, "Error doing e-mail login")
             })
         )
@@ -74,12 +77,7 @@ class LoginFragment : BaseFragment()
     private fun doLoginWithFacebook()
     {
         disposables.add(
-            viewModel.signInWithFacebook(activity).subscribe({
-                if (it.isLoggedIn) {
-                    dismissKeyboard()
-                    FragmentUtil.pop(activity)
-                }
-            }, {
+            viewModel.signInWithFacebook(activity).subscribe(loginSuccessful, {
                 Timber.e(it, "Error doing Facebook login")
             })
         )
