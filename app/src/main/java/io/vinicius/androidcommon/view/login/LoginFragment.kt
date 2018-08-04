@@ -31,8 +31,8 @@ class LoginFragment : BaseFragment()
      * Lifecycle
      */
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View
-        = inflater!!.inflate(R.layout.fragment_login, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
+        = inflater.inflate(R.layout.fragment_login, container, false)
 
     override fun bindViewModel()
     {
@@ -61,25 +61,25 @@ class LoginFragment : BaseFragment()
     private val loginSuccessful = { user: User ->
         if (user.isLoggedIn) {
             dismissKeyboard()
-            FragmentUtil.pop(activity)
+            FragmentUtil.pop(this.activity!!)
         }
     }
 
     private fun doLogin(email: String, password: String)
     {
         disposables.add(
-            viewModel.signIn(email, password).subscribe(loginSuccessful, {
+            viewModel.signIn(email, password).subscribe(loginSuccessful) {
                 Timber.e(it, "Error doing e-mail login")
-            })
+            }
         )
     }
 
     private fun doLoginWithFacebook()
     {
         disposables.add(
-            viewModel.signInWithFacebook(activity).subscribe(loginSuccessful, {
+            viewModel.signInWithFacebook(this.activity!!).subscribe(loginSuccessful) {
                 Timber.e(it, "Error doing Facebook login")
-            })
+            }
         )
     }
 }

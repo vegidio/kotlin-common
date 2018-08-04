@@ -21,5 +21,5 @@ class AppModule(private val app: Application)
 
     @Provides
     @Singleton
-    fun provideCallbacKManager(): CallbackManager = CallbackManager.Factory.create()
+    fun provideCallbackManager(): CallbackManager = CallbackManager.Factory.create()
 }

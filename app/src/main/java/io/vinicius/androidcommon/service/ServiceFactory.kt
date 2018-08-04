@@ -65,7 +65,7 @@ class ServiceFactory @Inject constructor(private val context: Context)
 
         return Interceptor {
             val request = it.request().newBuilder()
-                    .header("Cache-Control", "public, max-stale=" + seconds)
+                    .header("Cache-Control", "public, max-stale=$seconds")
                     .build()
 
             it.proceed(request)

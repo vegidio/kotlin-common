@@ -34,7 +34,11 @@ class UiUtil @Inject constructor(private val context: Context)
         hideSnackBar()
 
         snackbar = Snackbar.make(view, message, Snackbar.LENGTH_INDEFINITE)
-        if(callback != null) snackbar?.setAction(label, { callback.response(it) })
+
+        callback?.let { cb ->
+            snackbar?.setAction(label) { cb.response(it) }
+        }
+
         snackbar?.show()
     }
 

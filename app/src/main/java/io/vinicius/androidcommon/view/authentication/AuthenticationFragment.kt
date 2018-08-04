@@ -28,8 +28,8 @@ class AuthenticationFragment : BaseFragment()
      * Lifecycle
      */
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View
-        = inflater!!.inflate(R.layout.fragment_authentication, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
+        = inflater.inflate(R.layout.fragment_authentication, container, false)
 
     override fun bindViewModel()
     {
@@ -41,18 +41,18 @@ class AuthenticationFragment : BaseFragment()
                     if(viewModel.user.value.isLoggedIn) {
                         viewModel.signOut()
                     } else {
-                        FragmentUtil.push(this.activity, LoginFragment.newInstance(),
+                        FragmentUtil.push(this.activity!!, LoginFragment.newInstance(),
                             FragmentTransition.SLIDE_BOTTOM, FragmentTransition.SLIDE_BOTTOM)
                     }
                 },
 
             viewModel.user.subscribe { user ->
                 if(user.isLoggedIn) {
-                    txEmail.setTextColor(ContextCompat.getColor(this.activity, R.color.black))
+                    txEmail.setTextColor(ContextCompat.getColor(this.context!!, R.color.black))
                     txEmail.text = user.email
                     btLoginLogout.text = "Logout"
                 } else {
-                    txEmail.setTextColor(ContextCompat.getColor(this.activity, R.color.medium_gray))
+                    txEmail.setTextColor(ContextCompat.getColor(this.context!!, R.color.medium_gray))
                     txEmail.text = "No account"
                     btLoginLogout.text = "Login"
                 }

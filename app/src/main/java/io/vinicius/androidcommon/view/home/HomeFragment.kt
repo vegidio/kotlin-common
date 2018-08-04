@@ -22,17 +22,17 @@ class HomeFragment : BaseFragment()
 
     private val adapter = HomeAdapter(arrayOf(MenuOptions.COUNTRY, MenuOptions.FIREBASE_FIRESTORE))
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View
-            = inflater!!.inflate(R.layout.fragment_home, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
+        = inflater.inflate(R.layout.fragment_home, container, false)
 
-    override fun onActivityCreated(savedInstanceState: Bundle?)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
-        super.onActivityCreated(savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
 
         // Setting up the RecyclerView
         rvHome.setHasFixedSize(true)
-        rvHome.addItemDecoration(DividerItemDecoration(this.activity, DividerItemDecoration.VERTICAL))
-        rvHome.layoutManager = LinearLayoutManager(this.activity)
+        rvHome.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+        rvHome.layoutManager = LinearLayoutManager(context)
         rvHome.adapter = adapter
     }
 
@@ -43,7 +43,7 @@ class HomeFragment : BaseFragment()
                     .throttleFirst(500, TimeUnit.MILLISECONDS)
                     .subscribe {
                         when(it) {
-                            MenuOptions.COUNTRY -> FragmentUtil.push(activity, CountryFragment.newInstance())
+                            MenuOptions.COUNTRY -> FragmentUtil.push(this.activity!!, CountryFragment.newInstance())
                             else -> {}
                         }
                     }

@@ -1,8 +1,8 @@
 package io.vinicius.androidcommon.view
 
-import android.app.Fragment
 import android.content.Context
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.view.inputmethod.InputMethodManager
 import io.reactivex.disposables.CompositeDisposable
 
@@ -15,7 +15,7 @@ open class BaseFragment : Fragment()
         super.onActivityCreated(savedInstanceState)
 
         // To avoid the clicks on the current fragment to trigger other views underneath
-        view.isClickable = true
+        view?.isClickable = true
 
         // Binding the views to the view model
         bindViewModel()
@@ -38,11 +38,9 @@ open class BaseFragment : Fragment()
 
     fun dismissKeyboard()
     {
-        val view = activity.currentFocus
-
-        if(view != null) {
-            val inputMethod = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            inputMethod.hideSoftInputFromWindow(view.windowToken, 0)
+        activity?.currentFocus?.let {
+            val inputMethod = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethod.hideSoftInputFromWindow(it.windowToken, 0)
         }
     }
 }

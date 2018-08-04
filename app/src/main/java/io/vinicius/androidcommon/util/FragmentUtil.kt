@@ -1,16 +1,16 @@
 package io.vinicius.androidcommon.util
 
-import android.app.Activity
-import android.app.DialogFragment
-import android.app.Fragment
+import android.support.v4.app.DialogFragment
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentActivity
 import android.transition.Transition
 import android.util.SparseArray
 import io.vinicius.androidcommon.R
 import io.vinicius.androidcommon.constant.FragmentTransition
-import java.util.*
+import java.util.Stack
 import javax.inject.Inject
 
-class FragmentUtil @Inject constructor(private val activity: Activity)
+class FragmentUtil @Inject constructor(private val activity: FragmentActivity)
 {
     companion object
     {
@@ -19,21 +19,21 @@ class FragmentUtil @Inject constructor(private val activity: Activity)
         /**
          * The active fragments of a specific activity.
          */
-        fun getFragments(activity: Activity): Stack<Fragment>
+        fun getFragments(activity: FragmentActivity): Stack<Fragment>
         {
             var fragments = activities.get(activity.hashCode())
             if(fragments == null) fragments = Stack()
             return fragments
         }
 
-        private fun addToStack(activity: Activity, fragment: Fragment)
+        private fun addToStack(activity: FragmentActivity, fragment: Fragment)
         {
             val fragments = getFragments(activity)
             fragments.push(fragment)
             activities.put(activity.hashCode(), fragments)
         }
 
-        private fun removeFromStack(activity: Activity)
+        private fun removeFromStack(activity: FragmentActivity)
         {
             val fragments = getFragments(activity)
             fragments.pop()
@@ -45,15 +45,15 @@ class FragmentUtil @Inject constructor(private val activity: Activity)
          *
          * @param activity
          * @param fragment
-         * @param anim1 the animation for the fragment that will appear.
-         * @param anim2 the animation for the fragment that will disappear.
+         * @param trans1 the animation for the fragment that will appear.
+         * @param trans2 the animation for the fragment that will disappear.
          */
-        fun put(activity: Activity, fragment: Fragment, trans1: Transition? = null, trans2: Transition? = null)
+        fun put(activity: FragmentActivity, fragment: Fragment, trans1: Transition? = null, trans2: Transition? = null)
         {
             fragment.enterTransition = trans1
             fragment.exitTransition = trans2
 
-            val ft = activity.fragmentManager.beginTransaction()
+            val ft = activity.supportFragmentManager.beginTransaction()
 
             // Clear the stack
             activities.put(activity.hashCode(), Stack())
@@ -65,13 +65,13 @@ class FragmentUtil @Inject constructor(private val activity: Activity)
             addToStack(activity, fragment)
         }
 
-        fun push(activity: Activity, fragment: Fragment, trans1: Transition? = FragmentTransition.SLIDE_RIGHT,
+        fun push(activity: FragmentActivity, fragment: Fragment, trans1: Transition? = FragmentTransition.SLIDE_RIGHT,
                  trans2: Transition? = FragmentTransition.SLIDE_RIGHT)
         {
             fragment.enterTransition = trans1
             fragment.exitTransition = trans2
 
-            val ft = activity.fragmentManager.beginTransaction()
+            val ft = activity.supportFragmentManager.beginTransaction()
 
             // Check if the activity is not ending
             if(!activity.isFinishing) ft.add(R.id.frame_layout, fragment)
@@ -80,9 +80,9 @@ class FragmentUtil @Inject constructor(private val activity: Activity)
             addToStack(activity, fragment)
         }
 
-        fun pop(activity: Activity)
+        fun pop(activity: FragmentActivity)
         {
-            val ft = activity.fragmentManager.beginTransaction()
+            val ft = activity.supportFragmentManager.beginTransaction()
 
             // Get the topmost fragment
             val topFragment = getFragments(activity).peek()
@@ -94,12 +94,13 @@ class FragmentUtil @Inject constructor(private val activity: Activity)
             removeFromStack(activity)
         }
 
-        fun replace(activity: Activity, fragment: Fragment, trans1: Transition? = null, trans2: Transition? = null)
+        fun replace(activity: FragmentActivity, fragment: Fragment, trans1: Transition? = null,
+                    trans2: Transition? = null)
         {
             fragment.enterTransition = trans1
             fragment.exitTransition = trans2
 
-            val ft = activity.fragmentManager.beginTransaction()
+            val ft = activity.supportFragmentManager.beginTransaction()
 
             // Get the topmost fragment
             val topFragment = getFragments(activity).peek()
@@ -117,13 +118,13 @@ class FragmentUtil @Inject constructor(private val activity: Activity)
         /**
          * Show a dialog fragment.
          */
-        fun showDialog(activity: Activity, fragment: DialogFragment)
+        fun showDialog(activity: FragmentActivity, fragment: DialogFragment)
         {
-            val fm = activity.fragmentManager
+            val fm = activity.supportFragmentManager
             val ft = fm.beginTransaction()
 
             val oldFragment = fm.findFragmentByTag("dialog")
-            if(oldFragment != null) ft.remove(oldFragment)
+            oldFragment?.let { ft.remove(it) }
             ft.commitAllowingStateLoss()
 
             fragment.show(fm, "dialog")
