@@ -59,11 +59,11 @@ class AuthenticationViewModel
             with(LoginManager.getInstance()) {
 
                 // Facebook callback
-                registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
+                this.registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
                     override fun onSuccess(result: LoginResult?) {
 
-                        if(result?.accessToken != null) {
-                            val credential = FacebookAuthProvider.getCredential(result.accessToken.token)
+                        result?.accessToken?.let { accessToken ->
+                            val credential = FacebookAuthProvider.getCredential(accessToken.token)
 
                             FirebaseAuth.getInstance().signInWithCredential(credential)
                                 .addOnCompleteListener {

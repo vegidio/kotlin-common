@@ -12,7 +12,6 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.OutputStream
-import java.util.*
 import javax.inject.Inject
 
 class PreferencesUtil @Inject constructor(context: Context)
@@ -177,7 +176,7 @@ class PreferencesUtil @Inject constructor(context: Context)
         // LOW-9 QUOTATION MARK unicode 201A and unicode 2017 they are used for
         // seprating the items in the list
         val mylist = TextUtils.split(preferences.getString(key, ""), "‚‗‚")
-        return ArrayList(Arrays.asList(*mylist))
+        return mylist.toList() as ArrayList<String>
     }
 
     fun putListInt(key: String, marray: ArrayList<Int>)
@@ -197,8 +196,8 @@ class PreferencesUtil @Inject constructor(context: Context)
         // LOW-9 QUOTATION MARK unicode 201A and unicode 2017 they are used for
         // seprating the items in the list
         val mylist = TextUtils.split(preferences.getString(key, ""), "‚‗‚")
-        val gottenlist = ArrayList(Arrays.asList(*mylist))
-        val gottenlist2 = gottenlist.indices.mapTo(ArrayList<Int>()) { Integer.parseInt(gottenlist[it]) }
+        val gottenlist = mylist.toList()
+        val gottenlist2 = gottenlist.indices.mapTo(ArrayList()) { Integer.parseInt(gottenlist[it]) }
 
         return gottenlist2
     }
@@ -241,7 +240,7 @@ class PreferencesUtil @Inject constructor(context: Context)
 
     fun getBoolean(key: String): Boolean = preferences.getBoolean(key, false)
 
-    fun getBoolean(key: String, value: Boolean): Boolean = preferences.getBoolean(key, true)
+    fun getBoolean(key: String, value: Boolean): Boolean = preferences.getBoolean(key, value)
 
     fun putFloat(key: String, value: Float)
     {
