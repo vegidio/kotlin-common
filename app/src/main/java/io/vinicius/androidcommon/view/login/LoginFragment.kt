@@ -8,7 +8,6 @@ import com.jakewharton.rxbinding2.view.RxView
 import io.vinicius.androidcommon.App
 import io.vinicius.androidcommon.R
 import io.vinicius.androidcommon.model.User
-import io.vinicius.androidcommon.util.FragmentUtil
 import io.vinicius.androidcommon.view.BaseFragment
 import io.vinicius.androidcommon.viewmodel.AuthenticationViewModel
 import kotlinx.android.synthetic.main.fragment_login.*
@@ -36,8 +35,9 @@ class LoginFragment : BaseFragment()
 
     override fun bindViewModel()
     {
-        disposables.addAll(
+        super.bindViewModel()
 
+        disposables.addAll(
             RxView.clicks(btLogin)
                 .throttleFirst(500, TimeUnit.MILLISECONDS)
                 .subscribe {
@@ -61,7 +61,7 @@ class LoginFragment : BaseFragment()
     private val loginSuccessful = { user: User ->
         if (user.isLoggedIn) {
             dismissKeyboard()
-            FragmentUtil.pop(this.activity!!)
+            navigation.navigateUp()
         }
     }
 

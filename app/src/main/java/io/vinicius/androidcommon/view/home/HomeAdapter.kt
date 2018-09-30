@@ -22,8 +22,8 @@ class HomeAdapter(private val items: Array<MenuOptions>) : RecyclerView.Adapter<
 
     override fun getItemCount() = items.size
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int) =
-            ViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.row_home, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder
+        = ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row_home, parent, false))
 
-    override fun onBindViewHolder(holder: ViewHolder?, position: Int) = holder!!.bind(items[position])
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(items[position])
 }

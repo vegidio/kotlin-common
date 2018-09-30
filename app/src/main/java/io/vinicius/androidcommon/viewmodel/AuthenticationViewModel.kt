@@ -43,7 +43,7 @@ class AuthenticationViewModel
                 .addOnCompleteListener {
 
                 if(it.isSuccessful) {
-                    observer.onNext(extractUser(it.result.user))
+                    observer.onNext(extractUser(it.result?.user))
                     observer.onComplete()
                 } else {
                     observer.onError(it.exception!!)
@@ -69,7 +69,7 @@ class AuthenticationViewModel
                                 .addOnCompleteListener {
 
                                     if(it.isSuccessful) {
-                                        observer.onNext(extractUser(it.result.user))
+                                        observer.onNext(extractUser(it.result?.user))
                                         observer.onComplete()
                                     } else {
                                         observer.onError(it.exception!!)

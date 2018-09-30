@@ -4,32 +4,37 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.inputmethod.InputMethodManager
+import androidx.navigation.fragment.NavHostFragment
 import io.reactivex.disposables.CompositeDisposable
 
 open class BaseFragment : Fragment()
 {
-    internal val disposables = CompositeDisposable()
+    val disposables = CompositeDisposable()
+    val navigation get() = NavHostFragment.findNavController(this)
+    private var isBoundViewModel = false
 
     override fun onActivityCreated(savedInstanceState: Bundle?)
     {
         super.onActivityCreated(savedInstanceState)
 
         // To avoid the clicks on the current fragment to trigger other views underneath
-        view?.isClickable = true
+        view?.isFocusable = true
 
         // Binding the views to the view model
-        bindViewModel()
+        if(!isBoundViewModel) bindViewModel()
     }
 
-    internal open fun bindViewModel()
-    {}
+    open fun bindViewModel()
+    {
+        isBoundViewModel = true
+    }
 
     override fun onDestroy()
     {
-        super.onDestroy()
-
         // Make sure we dispose any pending observable
         disposables.dispose()
+
+        super.onDestroy()
     }
 
     /*

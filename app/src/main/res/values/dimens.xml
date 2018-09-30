@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="screen_trans_path">1440</dimen>
+    <dimen name="neg_screen_trans_path">-1440</dimen>
+    <dimen name="screen_trans_time">350</dimen>
+</resources>

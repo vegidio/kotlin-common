@@ -124,7 +124,7 @@ class PreferencesUtil @Inject constructor(context: Context)
 
     fun getLong(key: String): Long = preferences.getLong(key, 0L)
 
-    fun getString(key: String): String = preferences.getString(key, "")
+    fun getString(key: String): String = preferences.getString(key, "")!!
 
     fun getDouble(key: String): Double
     {

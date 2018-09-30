@@ -32,6 +32,8 @@ class CountryFragment : BaseFragment()
 
     override fun bindViewModel()
     {
+        super.bindViewModel()
+
         disposables.addAll(
             RxView.clicks(btRun)
                 .throttleFirst(500, TimeUnit.MILLISECONDS)

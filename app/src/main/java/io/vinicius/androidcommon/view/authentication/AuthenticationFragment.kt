@@ -8,10 +8,7 @@ import android.view.ViewGroup
 import com.jakewharton.rxbinding2.view.RxView
 import io.vinicius.androidcommon.App
 import io.vinicius.androidcommon.R
-import io.vinicius.androidcommon.constant.FragmentTransition
-import io.vinicius.androidcommon.util.FragmentUtil
 import io.vinicius.androidcommon.view.BaseFragment
-import io.vinicius.androidcommon.view.login.LoginFragment
 import io.vinicius.androidcommon.viewmodel.AuthenticationViewModel
 import kotlinx.android.synthetic.main.fragment_authentication.*
 import java.util.concurrent.TimeUnit
@@ -33,16 +30,16 @@ class AuthenticationFragment : BaseFragment()
 
     override fun bindViewModel()
     {
-        disposables.addAll(
+        super.bindViewModel()
 
+        disposables.addAll(
             RxView.clicks(btLoginLogout)
                 .throttleFirst(500, TimeUnit.MILLISECONDS)
                 .subscribe {
                     if(viewModel.user.value.isLoggedIn) {
                         viewModel.signOut()
                     } else {
-                        FragmentUtil.push(this.activity!!, LoginFragment.newInstance(),
-                            FragmentTransition.SLIDE_BOTTOM, FragmentTransition.SLIDE_BOTTOM)
+                        navigation.navigate(R.id.acAuthToLogin)
                     }
                 },
 

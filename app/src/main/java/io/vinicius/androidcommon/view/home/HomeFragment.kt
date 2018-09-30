@@ -8,9 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import io.vinicius.androidcommon.R
 import io.vinicius.androidcommon.constant.MenuOptions
-import io.vinicius.androidcommon.util.FragmentUtil
 import io.vinicius.androidcommon.view.BaseFragment
-import io.vinicius.androidcommon.view.country.CountryFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 import java.util.concurrent.TimeUnit
 
@@ -38,12 +36,14 @@ class HomeFragment : BaseFragment()
 
     override fun bindViewModel()
     {
+        super.bindViewModel()
+
         disposables.add(
                 adapter.itemClick
                     .throttleFirst(500, TimeUnit.MILLISECONDS)
                     .subscribe {
                         when(it) {
-                            MenuOptions.COUNTRY -> FragmentUtil.push(this.activity!!, CountryFragment.newInstance())
+                            MenuOptions.COUNTRY -> navigation.navigate(R.id.acHomeToCountry)
                             else -> {}
                         }
                     }
