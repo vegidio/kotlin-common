@@ -1,7 +1,7 @@
 package io.vinicius.androidcommon.view
 
 import android.app.AlertDialog
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
 import io.vinicius.androidcommon.R
 import timber.log.Timber

@@ -1,10 +1,10 @@
 package io.vinicius.androidcommon.view.authentication
 
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import com.jakewharton.rxbinding2.view.RxView
 import io.vinicius.androidcommon.App
 import io.vinicius.androidcommon.R
@@ -30,8 +30,6 @@ class AuthenticationFragment : BaseFragment()
 
     override fun bindViewModel()
     {
-        super.bindViewModel()
-
         disposables.addAll(
             RxView.clicks(btLoginLogout)
                 .throttleFirst(500, TimeUnit.MILLISECONDS)
@@ -39,7 +37,7 @@ class AuthenticationFragment : BaseFragment()
                     if(viewModel.user.value.isLoggedIn) {
                         viewModel.signOut()
                     } else {
-                        navigation.navigate(R.id.acAuthToLogin)
+                        navigation.navigate(R.id.authToLogin)
                     }
                 },
 

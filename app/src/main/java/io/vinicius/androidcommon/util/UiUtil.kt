@@ -1,9 +1,9 @@
 package io.vinicius.androidcommon.util
 
 import android.content.Context
-import android.support.design.widget.Snackbar
 import android.view.View
 import android.widget.Toast
+import com.google.android.material.snackbar.Snackbar
 import javax.inject.Inject
 
 class UiUtil @Inject constructor(private val context: Context)

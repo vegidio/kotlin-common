@@ -1,9 +1,9 @@
 package io.vinicius.androidcommon.view.home
 
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import io.reactivex.subjects.PublishSubject
 import io.vinicius.androidcommon.R
 import io.vinicius.androidcommon.constant.MenuOptions

@@ -1,11 +1,11 @@
 package io.vinicius.androidcommon.view.home
 
 import android.os.Bundle
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import io.vinicius.androidcommon.R
 import io.vinicius.androidcommon.constant.MenuOptions
 import io.vinicius.androidcommon.view.BaseFragment
@@ -43,7 +43,7 @@ class HomeFragment : BaseFragment()
                     .throttleFirst(500, TimeUnit.MILLISECONDS)
                     .subscribe {
                         when(it) {
-                            MenuOptions.COUNTRY -> navigation.navigate(R.id.acHomeToCountry)
+                            MenuOptions.COUNTRY -> navigation.navigate(R.id.homeToCountry)
                             else -> {}
                         }
                     }

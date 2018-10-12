@@ -1,7 +1,7 @@
 package io.vinicius.androidcommon.util
 
 import android.app.Activity
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
 import com.tbruyelle.rxpermissions2.RxPermissions
 import timber.log.Timber
 

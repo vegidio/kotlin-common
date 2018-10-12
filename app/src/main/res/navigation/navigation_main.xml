@@ -12,10 +12,13 @@
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/acAuthToLogin"
-            app:destination="@id/loginFragment" />
+            android:id="@+id/authToLogin"
+            app:destination="@id/loginFragment"
+            app:enterAnim="@animator/slide_in_bottom"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popExitAnim="@animator/slide_out_bottom" />
         <action
-            android:id="@+id/acHomeToCountry"
+            android:id="@+id/homeToCountry"
             app:destination="@id/countryFragment"
             app:enterAnim="@animator/slide_in_right"
             app:exitAnim="@anim/nav_default_exit_anim"

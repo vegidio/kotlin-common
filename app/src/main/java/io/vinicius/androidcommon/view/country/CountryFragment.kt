@@ -55,7 +55,7 @@ class CountryFragment : BaseFragment()
     {
         val codes = arrayOf("AS", "BY", "BR", "ES", "GR", "HR", "IR", "LT", "MZ", "PS", "RS", "RU", "SE", "UA")
         val filtered = codes.filter { it != ignoreValue }
-        val code = filtered.shuffled()[0]
+        val code = filtered.shuffled().first()
 
         disposables.add(
             viewModel.getCountryByCode(code).subscribe({}, {

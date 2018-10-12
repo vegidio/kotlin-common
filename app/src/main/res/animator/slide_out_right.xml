@@ -6,5 +6,5 @@
         android:propertyName="x"
         android:valueFrom="0"
         android:valueTo="@dimen/screen_trans_path"
-        android:valueType="floatType"/>
+        android:valueType="floatType" />
 </set>
