@@ -5,21 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProviders
 import com.jakewharton.rxbinding2.view.RxView
-import io.vinicius.androidcommon.App
 import io.vinicius.androidcommon.R
-import io.vinicius.androidcommon.view.BaseFragment
+import io.vinicius.androidcommon.custom.BaseFragment
 import io.vinicius.androidcommon.viewmodel.AuthenticationViewModel
 import kotlinx.android.synthetic.main.fragment_authentication.*
 import java.util.concurrent.TimeUnit
-import javax.inject.Inject
 
 class AuthenticationFragment : BaseFragment()
 {
-    @Inject
-    lateinit var viewModel: AuthenticationViewModel
-
-    init { App.component.inject(this) }
+    private val viewModel by lazy { ViewModelProviders.of(this).get(AuthenticationViewModel::class.java) }
 
     /*
      * Lifecycle
@@ -30,6 +26,8 @@ class AuthenticationFragment : BaseFragment()
 
     override fun bindViewModel()
     {
+        super.bindViewModel()
+
         disposables.addAll(
             RxView.clicks(btLoginLogout)
                 .throttleFirst(500, TimeUnit.MILLISECONDS)

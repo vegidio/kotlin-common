@@ -5,6 +5,7 @@ import android.os.Bundle
 import com.facebook.CallbackManager
 import io.vinicius.androidcommon.App
 import io.vinicius.androidcommon.R
+import io.vinicius.androidcommon.custom.BaseActivity
 import javax.inject.Inject
 
 class MainActivity : BaseActivity()

@@ -1,4 +1,4 @@
-package io.vinicius.androidcommon.view
+package io.vinicius.androidcommon.custom
 
 import android.content.Context
 import android.os.Bundle
@@ -6,13 +6,11 @@ import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import io.reactivex.disposables.CompositeDisposable
-import io.vinicius.androidcommon.extension.*
 
 open class BaseFragment : Fragment()
 {
     val disposables = CompositeDisposable()
     val navigation get() = NavHostFragment.findNavController(this)
-    private var isBoundViewModel = false
 
     override fun onActivityCreated(savedInstanceState: Bundle?)
     {
@@ -22,12 +20,15 @@ open class BaseFragment : Fragment()
         view?.isFocusable = true
 
         // Binding the views to the view model
-        if(!isBoundViewModel) bindViewModel()
+        bindViewModel()
     }
 
     open fun bindViewModel()
     {
-        isBoundViewModel = true
+        // Clear the disposables before we add anything new. Most of the time this object will be already cleared
+        // because it's initialized together with the fragment, but if we are playing with the fragment stack and a
+        // fragment is brought from the back to the front of the stack, then we must make sure that this is cleared.
+        disposables.clear()
     }
 
     override fun onDestroy()

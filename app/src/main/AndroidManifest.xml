@@ -29,7 +29,7 @@
 
         <!-- Base Activity -->
         <activity
-            android:name=".view.BaseActivity"
+            android:name=".custom.BaseActivity"
             android:label="Base Activity"/>
 
         <!-- Main Activity -->

@@ -1,4 +1,4 @@
-package io.vinicius.androidcommon.view
+package io.vinicius.androidcommon.custom
 
 import android.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity

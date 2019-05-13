@@ -4,15 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProviders
 import com.jakewharton.rxbinding2.view.RxView
-import io.vinicius.androidcommon.App
 import io.vinicius.androidcommon.R
-import io.vinicius.androidcommon.view.BaseFragment
+import io.vinicius.androidcommon.custom.BaseFragment
 import io.vinicius.androidcommon.viewmodel.CountryViewModel
 import kotlinx.android.synthetic.main.fragment_country.*
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
-import javax.inject.Inject
 
 class CountryFragment : BaseFragment()
 {
@@ -20,12 +19,8 @@ class CountryFragment : BaseFragment()
         fun newInstance() = CountryFragment()
     }
 
-    @Inject
-    lateinit var viewModel: CountryViewModel
-
+    private val viewModel by lazy { ViewModelProviders.of(this).get(CountryViewModel::class.java) }
     private var ignoreValue = ""
-
-    init { App.component.inject(this) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
         = inflater.inflate(R.layout.fragment_country, container, false)

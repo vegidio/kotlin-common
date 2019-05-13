@@ -7,13 +7,14 @@ import io.vinicius.androidcommon.view.authentication.AuthenticationFragment
 import io.vinicius.androidcommon.view.country.CountryFragment
 import io.vinicius.androidcommon.view.login.LoginFragment
 import io.vinicius.androidcommon.viewmodel.AuthenticationViewModel
+import io.vinicius.androidcommon.viewmodel.CountryViewModel
 import javax.inject.Singleton
 
 @Singleton
 @Component(modules = [
     AppModule::class,
-    UtilsModule::class,
-    ViewModelModule::class
+    ServiceModule::class,
+    UtilsModule::class
 ])
 
 interface AppComponent
@@ -31,4 +32,5 @@ interface AppComponent
 
     // View Models
     fun inject(target: AuthenticationViewModel)
+    fun inject(target: CountryViewModel)
 }

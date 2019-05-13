@@ -1,6 +1,7 @@
 package io.vinicius.androidcommon.viewmodel
 
 import android.app.Activity
+import androidx.lifecycle.ViewModel
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
@@ -15,7 +16,7 @@ import io.vinicius.androidcommon.App
 import io.vinicius.androidcommon.model.User
 import javax.inject.Inject
 
-class AuthenticationViewModel
+class AuthenticationViewModel : ViewModel()
 {
     @Inject
     lateinit var callbackManager: CallbackManager

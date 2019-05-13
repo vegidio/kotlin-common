@@ -12,7 +12,7 @@ import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class ServiceFactory @Inject constructor(private val context: Context)
+class RestFactory @Inject constructor(private val context: Context)
 {
     private val cacheSize = 10 * 1024 * 1024
 

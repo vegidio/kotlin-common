@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import io.vinicius.androidcommon.R
 import io.vinicius.androidcommon.constant.MenuOptions
-import io.vinicius.androidcommon.view.BaseFragment
+import io.vinicius.androidcommon.custom.BaseFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 import java.util.concurrent.TimeUnit
 
